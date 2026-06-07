@@ -200,7 +200,6 @@
     </div>
 
     <script>
-      // JSの文字列内でバックスラッシュを使うため、LaTeXのコマンドは \\ と2つ重ねています。
       const data = [
         {
           q: "【問1】\n各組織のスケール [m]\n・ナノ組織\n・マクロ組織\n・ミクロ組織",
@@ -368,7 +367,7 @@
         },
         {
           q: "【その他】\nSAWフィルタの基本動作（共振の原理）",
-          a: "圧電素子上の櫛形電極の電極間隔 $d$ が『SAWの半波長 $\\lambda / 2$』の時、周波数 $f = \\frac{v}{\\lambda}$ の交流電圧を印加する。\n\n半波長が『電極間隔 $d$』と等しい波だけが『共振』し、電極間に『交流電圧』として観測される。",
+          a: "圧াবলী素子上の櫛形電極の電極間隔 $d$ が『SAWの半波長 $\\lambda / 2$』の時、周波数 $f = \\frac{v}{\\lambda}$ の交流電圧を印加する。\n\n半波長が『電極間隔 $d$』と等しい波だけが『共振』し、電極間に『交流電圧』として観測される。",
         },
       ];
 
@@ -380,9 +379,12 @@
       const progress = document.getElementById("progress");
       const flashcard = document.getElementById("flashcard");
 
-      // MathJaxに再レンダリングを促す関数
+      // MathJaxが読み込まれている場合のみ再レンダリングを促す
       function typesetMath() {
-        if (window.MathJax) {
+        if (
+          window.MathJax &&
+          typeof window.MathJax.typesetPromise === "function"
+        ) {
           MathJax.typesetPromise([cardContent]).catch((err) =>
             console.log(err),
           );
@@ -393,7 +395,6 @@
         showingAnswer = false;
         flashcard.classList.remove("show-answer");
         cardLabel.innerText = "【問題】 タップして解答を表示";
-        // innerHTML を使って数式がタグとして解釈されるように変更
         cardContent.innerHTML = data[currentIndex].q;
         progress.innerText = `${currentIndex + 1} / ${data.length}`;
 
