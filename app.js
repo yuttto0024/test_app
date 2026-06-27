@@ -20,7 +20,6 @@
   const deckTitle = document.getElementById("deck-title");
   const cardJumpInput = document.getElementById("card-jump-num");
   const cardJumpButton = document.getElementById("card-jump-button");
-  const cardCounter = document.getElementById("card-counter");
 
   function getCurrentDeck() {
     return decks.find((deck) => deck.id === state.currentDeckId) || decks[0];
@@ -44,12 +43,6 @@
     flashcard.classList.remove("show-answer");
     cardLabel.textContent = "【問題】 タップして計算と解答を表示";
     deckTitle.textContent = deck.title;
-    if (cardCounter) {
-      cardCounter.textContent =
-        deck.cards && deck.cards.length
-          ? `${state.currentIndex + 1}/${deck.cards.length}`
-          : "";
-    }
 
     if (!deck.cards.length) {
       cardContent.innerHTML =
