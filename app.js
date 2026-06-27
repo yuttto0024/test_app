@@ -20,6 +20,8 @@
   const deckTitle = document.getElementById("deck-title");
   const deckJumpSelect = document.getElementById("deck-jump");
   const deckJumpButton = document.getElementById("deck-jump-button");
+  const cardJumpInput = document.getElementById("card-jump-num");
+  const cardJumpButton = document.getElementById("card-jump-button");
 
   function getCurrentDeck() {
     return decks.find((deck) => deck.id === state.currentDeckId) || decks[0];
@@ -157,6 +159,24 @@
     deckJumpButton.addEventListener("click", () => {
       const id = deckJumpSelect.value;
       if (id) startDeck(id);
+    });
+  }
+
+  if (cardJumpButton && cardJumpInput) {
+    cardJumpButton.addEventListener("click", () => {
+      const deck = getCurrentDeck();
+      if (!deck) return;
+      const raw = cardJumpInput.value;
+      const n = Number(raw);
+      if (!raw || !Number.isInteger(n) || n < 1 || n > deck.cards.length) {
+        window.alert(
+          `有効なカード番号を入力してください（1〜${deck.cards.length}）。`,
+        );
+        return;
+      }
+      state.currentIndex = n - 1;
+      state.stage = 0;
+      updateCard();
     });
   }
 
