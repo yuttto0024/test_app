@@ -3,7 +3,8 @@
   const state = {
     currentDeckId: null,
     currentIndex: 0,
-    showingAnswer: false,
+    // stage: 0=question, 1=calculation+answer
+    stage: 0,
   };
 
   const selectionView = document.getElementById("deck-selection");
@@ -36,9 +37,9 @@
       return;
     }
 
-    state.showingAnswer = false;
+    state.stage = 0;
     flashcard.classList.remove("show-answer");
-    cardLabel.textContent = "【問題】 タップして解答を表示";
+    cardLabel.textContent = "【問題】 タップして計算と解答を表示";
     deckTitle.textContent = deck.title;
 
     if (!deck.cards.length) {
@@ -72,21 +73,26 @@
     }
 
     const card = deck.cards[state.currentIndex];
-    state.showingAnswer = !state.showingAnswer;
-
-    if (state.showingAnswer) {
+    // behavior: 0 -> 1 (show calculation + answer), then back to 0
+    if (state.stage === 0) {
       flashcard.classList.add("show-answer");
-      cardLabel.textContent = "【解答】";
-      cardContent.innerHTML = card.a;
-
-      if (card.a.length > 80 && window.innerWidth < 600) {
-        cardContent.style.fontSize = "1.2rem";
+      cardLabel.textContent = "【計算と解答】";
+      if (card.calculation) {
+        cardContent.innerHTML = card.calculation;
+      } else {
+        // fallback: show concise answer if no calculation provided
+        cardContent.innerHTML = card.a;
       }
-    } else {
-      updateCard();
+      state.stage = 1;
+      typesetMath();
+      return;
     }
 
-    typesetMath();
+    // stage === 1 -> return to question
+    if (state.stage === 1) {
+      updateCard();
+      return;
+    }
   }
 
   function nextCard() {

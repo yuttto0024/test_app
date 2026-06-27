@@ -184,7 +184,34 @@ main {
   cursor: pointer;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.calculation {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  max-height: 72vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 8px;
+}
+
+.calculation::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.calculation::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+}
+
+.calc-wrap > button.secondary {
+  background: linear-gradient(135deg, #eaf7f5, #d8f0ec);
+  border: 1px solid rgba(20, 184, 166, 0.12);
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 .card::before {
