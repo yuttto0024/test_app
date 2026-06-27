@@ -180,7 +180,10 @@ main {
   flex-direction: column;
   justify-content: center;
   min-height: 48vh;
+  /* Reserve extra space at top/left so the counter badge can sit outside without overlapping content */
   padding: clamp(24px, 4vw, 44px);
+  padding-top: calc(clamp(24px, 4vw, 44px) + 12px);
+  padding-left: calc(clamp(24px, 4vw, 44px) + 44px);
   cursor: pointer;
   text-align: center;
   position: relative;
@@ -217,9 +220,9 @@ main {
 /* card counter badge */
 .card-counter {
   position: absolute;
-  /* place visually outside the card padding so it doesn't overlap text */
-  left: -12px;
-  top: -12px;
+  /* fixed at the card's visual top-left (outside the border) */
+  left: -14px;
+  top: -14px;
   background: rgba(255, 255, 255, 0.95);
   color: var(--text-sub);
   border: 1px solid var(--border-color);
