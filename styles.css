@@ -217,8 +217,9 @@ main {
 /* card counter badge */
 .card-counter {
   position: absolute;
-  left: 16px;
-  top: 16px;
+  /* place visually outside the card padding so it doesn't overlap text */
+  left: -12px;
+  top: -12px;
   background: rgba(255, 255, 255, 0.95);
   color: var(--text-sub);
   border: 1px solid var(--border-color);
