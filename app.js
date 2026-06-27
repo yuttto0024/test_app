@@ -18,9 +18,22 @@
   const progress = document.getElementById("progress");
   const flashcard = document.getElementById("flashcard");
   const deckTitle = document.getElementById("deck-title");
+  const deckJumpSelect = document.getElementById("deck-jump");
+  const deckJumpButton = document.getElementById("deck-jump-button");
 
   function getCurrentDeck() {
     return decks.find((deck) => deck.id === state.currentDeckId) || decks[0];
+  }
+
+  function populateDeckJump() {
+    if (!deckJumpSelect) return;
+    deckJumpSelect.innerHTML = "";
+    decks.forEach((deck) => {
+      const opt = document.createElement("option");
+      opt.value = deck.id;
+      opt.textContent = deck.title;
+      deckJumpSelect.appendChild(opt);
+    });
   }
 
   function typesetMath() {
@@ -97,10 +110,13 @@
 
   function nextCard() {
     const deck = getCurrentDeck();
-    if (!deck || state.currentIndex >= deck.cards.length - 1) {
-      return;
+    if (!deck) return;
+    if (state.currentIndex >= deck.cards.length - 1) {
+      // wrap to first card
+      state.currentIndex = 0;
+    } else {
+      state.currentIndex += 1;
     }
-    state.currentIndex += 1;
     updateCard();
   }
 
@@ -117,6 +133,8 @@
     studyView.classList.add("hidden");
     deckList.innerHTML = "";
 
+    populateDeckJump();
+
     decks.forEach((deck) => {
       const button = document.createElement("button");
       button.className = "deck-card";
@@ -129,10 +147,17 @@
   function startDeck(deckId) {
     state.currentDeckId = deckId;
     state.currentIndex = 0;
-    state.showingAnswer = false;
+    state.stage = 0;
     selectionView.classList.add("hidden");
     studyView.classList.remove("hidden");
     updateCard();
+  }
+
+  if (deckJumpButton && deckJumpSelect) {
+    deckJumpButton.addEventListener("click", () => {
+      const id = deckJumpSelect.value;
+      if (id) startDeck(id);
+    });
   }
 
   flashcard.addEventListener("click", toggleCard);
