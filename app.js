@@ -11,7 +11,10 @@
   function normalizeMathInline(str) {
     if (!str || typeof str !== "string") return str;
     // convert \( ... \) -> $...$
-    str = str.replace(/\\\(([\s\S]*?)\\\)/g, "$$INLINE_OPEN$$$1$$INLINE_CLOSE$$");
+    str = str.replace(
+      /\\\(([\s\S]*?)\\\)/g,
+      "$$INLINE_OPEN$$$1$$INLINE_CLOSE$$",
+    );
     // convert \\\[ ... \\\] -> $$...$$ (display math)
     str = str.replace(/\\\[([\s\S]*?)\\\]/g, "$$$1$$");
     // restore inline markers to single-dollar
@@ -23,7 +26,8 @@
     if (!card || typeof card !== "object") return;
     if (card.q) card.q = normalizeMathInline(card.q);
     if (card.a) card.a = normalizeMathInline(card.a);
-    if (card.calculation) card.calculation = normalizeMathInline(card.calculation);
+    if (card.calculation)
+      card.calculation = normalizeMathInline(card.calculation);
   }
 
   function sanitizeDeckMath(deck) {

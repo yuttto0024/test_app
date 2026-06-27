@@ -2,7 +2,7 @@ window.flashcardDecks = window.flashcardDecks || [];
 window.flashcardDecks.push({
   id: "electronic-materials",
   title: "電気電子材料(中間)",
-  description: "これまでの単語帳内容をそのまま使うためのデッキです。",
+  description: "中間テストは終了しました。",
   cards: [
     {
       q: "【問1】\n各組織のスケール [m]\n・ナノ組織\n・マクロ組織\n・ミクロ組織",

@@ -2,7 +2,7 @@ window.flashcardDecks = window.flashcardDecks || [];
 window.flashcardDecks.push({
   id: "plasma-engineering",
   title: "プラズマ理工学",
-  description: "計算フローを展開できるカードを含むデッキです。",
+  description: "講義2~3まで追加しました。",
   cards: [
     {
       q: "【プラズマ理工学 第2回】\nQ. プラズマを定義する3つのポイントは？",
