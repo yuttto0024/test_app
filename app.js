@@ -18,8 +18,6 @@
   const progress = document.getElementById("progress");
   const flashcard = document.getElementById("flashcard");
   const deckTitle = document.getElementById("deck-title");
-  const deckJumpSelect = document.getElementById("deck-jump");
-  const deckJumpButton = document.getElementById("deck-jump-button");
   const cardJumpInput = document.getElementById("card-jump-num");
   const cardJumpButton = document.getElementById("card-jump-button");
 
@@ -27,16 +25,6 @@
     return decks.find((deck) => deck.id === state.currentDeckId) || decks[0];
   }
 
-  function populateDeckJump() {
-    if (!deckJumpSelect) return;
-    deckJumpSelect.innerHTML = "";
-    decks.forEach((deck) => {
-      const opt = document.createElement("option");
-      opt.value = deck.id;
-      opt.textContent = deck.title;
-      deckJumpSelect.appendChild(opt);
-    });
-  }
 
   function typesetMath() {
     if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
@@ -135,8 +123,6 @@
     studyView.classList.add("hidden");
     deckList.innerHTML = "";
 
-    populateDeckJump();
-
     decks.forEach((deck) => {
       const button = document.createElement("button");
       button.className = "deck-card";
@@ -155,12 +141,6 @@
     updateCard();
   }
 
-  if (deckJumpButton && deckJumpSelect) {
-    deckJumpButton.addEventListener("click", () => {
-      const id = deckJumpSelect.value;
-      if (id) startDeck(id);
-    });
-  }
 
   if (cardJumpButton && cardJumpInput) {
     cardJumpButton.addEventListener("click", () => {
