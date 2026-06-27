@@ -20,11 +20,11 @@
   const deckTitle = document.getElementById("deck-title");
   const cardJumpInput = document.getElementById("card-jump-num");
   const cardJumpButton = document.getElementById("card-jump-button");
+  const cardCounter = document.getElementById("card-counter");
 
   function getCurrentDeck() {
     return decks.find((deck) => deck.id === state.currentDeckId) || decks[0];
   }
-
 
   function typesetMath() {
     if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
@@ -44,6 +44,12 @@
     flashcard.classList.remove("show-answer");
     cardLabel.textContent = "【問題】 タップして計算と解答を表示";
     deckTitle.textContent = deck.title;
+    if (cardCounter) {
+      cardCounter.textContent =
+        deck.cards && deck.cards.length
+          ? `${state.currentIndex + 1}/${deck.cards.length}`
+          : "";
+    }
 
     if (!deck.cards.length) {
       cardContent.innerHTML =
@@ -111,10 +117,13 @@
   }
 
   function prevCard() {
+    const deck = getCurrentDeck();
+    if (!deck || !deck.cards.length) return;
     if (state.currentIndex <= 0) {
-      return;
+      state.currentIndex = deck.cards.length - 1;
+    } else {
+      state.currentIndex -= 1;
     }
-    state.currentIndex -= 1;
     updateCard();
   }
 
@@ -140,7 +149,6 @@
     studyView.classList.remove("hidden");
     updateCard();
   }
-
 
   if (cardJumpButton && cardJumpInput) {
     cardJumpButton.addEventListener("click", () => {
