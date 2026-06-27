@@ -7,6 +7,30 @@
     stage: 0,
   };
 
+  // Normalize LaTeX math delimiters in card text to consistent forms
+  function normalizeMathInline(str) {
+    if (!str || typeof str !== "string") return str;
+    // convert \( ... \) -> $...$
+    str = str.replace(/\\\(([\s\S]*?)\\\)/g, "$$INLINE_OPEN$$$1$$INLINE_CLOSE$$");
+    // convert \\\[ ... \\\] -> $$...$$ (display math)
+    str = str.replace(/\\\[([\s\S]*?)\\\]/g, "$$$1$$");
+    // restore inline markers to single-dollar
+    str = str.replace(/\$\$INLINE_OPEN\$\$(.*?)\$\$INLINE_CLOSE\$\$/g, "$1");
+    return str;
+  }
+
+  function sanitizeCardMath(card) {
+    if (!card || typeof card !== "object") return;
+    if (card.q) card.q = normalizeMathInline(card.q);
+    if (card.a) card.a = normalizeMathInline(card.a);
+    if (card.calculation) card.calculation = normalizeMathInline(card.calculation);
+  }
+
+  function sanitizeDeckMath(deck) {
+    if (!deck || !Array.isArray(deck.cards)) return;
+    deck.cards.forEach((c) => sanitizeCardMath(c));
+  }
+
   const selectionView = document.getElementById("deck-selection");
   const studyView = document.getElementById("study-view");
   const deckList = document.getElementById("deck-list");
@@ -140,6 +164,9 @@
     state.stage = 0;
     selectionView.classList.add("hidden");
     studyView.classList.remove("hidden");
+    // sanitize math delimiters in the deck's cards for consistent MathJax rendering
+    const deck = getCurrentDeck();
+    sanitizeDeckMath(deck);
     updateCard();
   }
 
