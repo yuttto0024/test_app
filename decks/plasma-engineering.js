@@ -2,7 +2,7 @@ window.flashcardDecks = window.flashcardDecks || [];
 window.flashcardDecks.push({
   id: "plasma-engineering",
   title: "プラズマ理工学",
-  description: "講義2~3まで追加しました。",
+  description: "講義2~10まで追加しました。",
   cards: [
     {
       q: "【プラズマ理工学 第2回】\nQ. プラズマを定義する3つのポイントは？",
@@ -125,6 +125,143 @@ window.flashcardDecks.push({
         "<li><strong>指数の計算</strong>: $10^{8}\\div10^{15}=10^{-7}$</li>" +
         "</ul>" +
         "<p><strong>答え（波長）</strong>: $\\lambda\\approx25.4\\times10^{-7}=2.54\\times10^{-6}\\,\\text{[m]}$</p>" +
+        "</div>",
+    },
+    {
+      q: "【プラズマ理工学 第5回】\n事前確認：必須公式・定数・単位変換",
+      a: "気体定数 $R=8.31\\,\mathrm{[J/(mol\\cdot K)]}$、アボガドロ定数 $N_A=6.02\\times10^{23}\\,\mathrm{[mol^{-1}]}$、理想気体の状態方程式 $PV=nRT$、物質量変換 $n=N/N_A$、圧力変換 $0.10\\,\\mathrm{MPa}=1.0\\times10^{5}\\,\\mathrm{Pa}$、体積変換 $1\\,\\mathrm{m}^3=10^{6}\\,\\mathrm{cm}^3$。",
+    },
+    {
+      q: "【プラズマ理工学 第5回】\nQ. 分子数密度を理想気体の状態方程式から導出せよ。",
+      a: "分子数密度は $\\dfrac{N}{V}=\\dfrac{P N_A}{R T}$ で表される。",
+      calculation:
+        '<div class="calculation"><strong>【回答と計算フロー】</strong>' +
+        "<p>理想気体の状態方程式 $PV=nRT$ に、物質量 $n=N/N_A$ を代入します。</p>" +
+        "<p>$PV=\\left(\\dfrac{N}{N_A}\\right)RT$</p>" +
+        "<p>両辺を体積 $V$ で割ると、分子数密度の式が得られます。</p>" +
+        "<p>$\\dfrac{N}{V}=\\dfrac{P N_A}{R T}$</p>" +
+        "</div>",
+    },
+    {
+      q: "【プラズマ理工学 第5回】\nQ. SI 単位で求めた分子数密度の単位と、cm^3 あたりに変換する方法は？",
+      a: "SI では単位が $[\\mathrm{個/m^3}]$ になり、$[\\mathrm{個/cm^3}]$ に直すには 10^6 で割る。",
+    },
+    {
+      q: "【プラズマ理工学 第5回】\n問題 Q1: 空気の窒素 80%・酸素 20% で、1 cm^3 の分子数密度を求めよ。",
+      a: "【答】\n窒素分子: $1.93\\times10^{19}\\,\\mathrm{[個/cm^3]}$、酸素分子: $4.83\\times10^{18}\\,\\mathrm{[個/cm^3]}$。",
+      calculation:
+        '<div class="calculation"><strong>【回答と計算フロー】</strong>' +
+        "<p><strong>Step 1: 数密度の式を立てる</strong></p>" +
+        "<p>$\\dfrac{N}{V}=\\dfrac{P N_A}{R T}$</p>" +
+        "<p><strong>Step 2: SI 単位で計算</strong></p>" +
+        "<p>$P=1.0\\times10^{5}\\,\\mathrm{Pa}$、$N_A=6.02\\times10^{23}$、$R=8.31$、$T=300.0\\,\\mathrm{K}$</p>" +
+        "<p>$\\dfrac{N}{V}=\\dfrac{1.0\\times10^{5}\\times6.02\\times10^{23}}{8.31\\times300.0}\\approx2.415\\times10^{25}\\,\\mathrm{[個/m^3]}$</p>" +
+        "<p><strong>Step 3: cm^3 への変換</strong></p>" +
+        "<p>1\\,\\mathrm{m^3}=10^{6}\\,\\mathrm{cm^3}$ なので、10^6 で割ります。</p>" +
+        "<p>$2.415\\times10^{25}\\div10^{6}=2.415\\times10^{19}\\,\\mathrm{[個/cm^3]}$</p>" +
+        "<p><strong>Step 4: 成分比率を掛ける</strong></p>" +
+        "<p>窒素 80%: $2.415\\times10^{19}\\times0.80\\approx1.93\\times10^{19}$</p>" +
+        "<p>酸素 20%: $2.415\\times10^{19}\\times0.20\\approx4.83\\times10^{18}$</p>" +
+        "</div>",
+    },
+    {
+      q: "【プラズマ理工学 第5回】\n問題 Q2: 電離層の電子密度 $10^5\\,\\mathrm{[個/cm^3]}$ は、Q1 の窒素分子数密度の何倍か。",
+      a: "【答】\n約 $5.2\\times10^{-15}$ 倍。",
+      calculation:
+        '<div class="calculation"><strong>【回答と計算フロー】</strong>' +
+        "<p><strong>Step 1: 比率を立てる</strong></p>" +
+        "<p>$\\text{倍率}=\\dfrac{1.0\\times10^{5}}{1.93\\times10^{19}}$</p>" +
+        "<p><strong>Step 2: 計算</strong></p>" +
+        "<p>指数の差は $5-19=-14$ です。</p>" +
+        "<p>$1.0\\div1.93\\approx0.518$</p>" +
+        "<p>$0.518\\times10^{-14}=5.18\\times10^{-15}$</p>" +
+        "</div>",
+    },
+    {
+      q: "【プラズマ理工学 第7回】\nQ. プラズマの集団的な振る舞いが引き起こす現象は？",
+      a: "プラスとマイナスの電荷バランスが崩れたとき、復元力によって全体が揺らぎ続ける現象、すなわちプラズマ振動を引き起こす。",
+    },
+    {
+      q: "【プラズマ理工学 第7回】\nQ. プラズマ振動は電子と電界のどのようなやり取りで起こるか？",
+      a: "電子が一方向にずれると電界が生じ、その電界が電子を元に戻し、行き過ぎると逆向きの電界ができて再び戻される。これを繰り返す。",
+    },
+    {
+      q: "【プラズマ理工学 第7回】\nQ. プラズマの「準中性」とはなぜそう表現されるか？",
+      a: "プラズマは完全に正負が一致するわけではなく、電気的中性を保とうとして常に揺らいでいるため、ほぼ等量（準中性）と表現される。",
+    },
+    {
+      q: "【プラズマ理工学 第7回】\nプラズマ振動のモデル式と角周波数の公式",
+      a: "$E=\\dfrac{q n_e \\xi}{\\epsilon_0}$、$m_e\\dfrac{d^2\\xi}{dt^2}=-\\dfrac{q^2 n_e \\xi}{\\epsilon_0}$、$\\omega_p=\\sqrt{\\dfrac{q^2 n_e}{\\epsilon_0 m_e}}$。",
+    },
+    {
+      q: "【プラズマ理工学 第7回】\n問題: 電子密度 $n_e=1.0\\times10^{16}\\,\\mathrm{[m^{-3}]}$ のとき、プラズマ振動の周波数 $f$ [Hz] を求めよ。",
+      a: "【答】\n$f \\approx 0.90\\times10^{9}\\,\\mathrm{[Hz]}$（約 1 GHz）。",
+      calculation:
+        '<div class="calculation"><strong>【回答と計算フロー】</strong>' +
+        "<p><strong>Step 1: 角周波数の式</strong></p>" +
+        "<p>$\\omega_p=\\sqrt{\\dfrac{q^2 n_e}{\\epsilon_0 m_e}}$</p>" +
+        "<p>定数: $q=1.6\\times10^{-19}$、$m_e=9.1\\times10^{-31}$、$\\epsilon_0=8.8\\times10^{-12}$、$n_e=1.0\\times10^{16}$</p>" +
+        "<p>$\\omega_p^2=\\dfrac{(1.6\\times10^{-19})^2\\times1.0\\times10^{16}}{8.8\\times10^{-12}\\times9.1\\times10^{-31}}\\approx31.96\\times10^{18}$</p>" +
+        "<p>$\\omega_p\\approx\\sqrt{31.96\\times10^{18}}\\approx5.65\\times10^{9}\\,\\mathrm{[rad/s]}$</p>" +
+        "<p><strong>Step 2: 周波数に変換</strong></p>" +
+        "<p>$f=\\dfrac{\\omega_p}{2\\pi}\\approx\\dfrac{5.65\\times10^{9}}{2\\times3.1416}\\approx0.90\\times10^{9}\\,\\mathrm{[Hz]}$</p>" +
+        "</div>",
+    },
+    {
+      q: "【プラズマ理工学 第8回】\n事前確認：デバイ長の公式と定数",
+      a: "デバイ長 $\\lambda_D=\\sqrt{\\dfrac{\\epsilon_0 k T_e}{n_e q^2}}$、$q=1.6\\times10^{-19}\\,\\mathrm{[C]}$、$\\epsilon_0=8.8\\times10^{-12}\\,\\mathrm{[C^2 J^{-1} m^{-1}]}$、$k=1.4\\times10^{-23}\\,\\mathrm{[J K^{-1}]}$。",
+    },
+    {
+      q: "【プラズマ理工学 第8回】\nQ. プラズマが成り立つサイズ条件は？",
+      a: "$L\\gg\\lambda_D\\gg n_e^{-1/3}$ である。",
+    },
+    {
+      q: "【プラズマ理工学 第8回】\n問題: $n_e=1.0\\times10^{16}\\,\\mathrm{[m^{-3}]}$、$T_e=10^{4}\\,\\mathrm{[K]}$ のときのデバイ長 $\\lambda_D$ を求めよ。",
+      a: "【答】$\\lambda_D \\approx 6.93\\times10^{-5}\\,\\mathrm{[m]}$（約 0.069 mm）。",
+      calculation:
+        '<div class="calculation"><strong>【回答と計算フロー】</strong>' +
+        "<p><strong>Step 1: 式と単位</strong></p>" +
+        "<p>$\\lambda_D=\\sqrt{\\dfrac{\\epsilon_0 k T_e}{n_e q^2}}$</p>" +
+        "<p>分子: $\\epsilon_0 k T_e=(8.8\\times10^{-12})\\times(1.4\\times10^{-23})\\times10^{4}=12.32\\times10^{-31}$</p>" +
+        "<p>分母: $n_e q^2=(1.0\\times10^{16})\\times(1.6\\times10^{-19})^2=2.56\\times10^{-22}$</p>" +
+        "<p>$\\dfrac{12.32\\times10^{-31}}{2.56\\times10^{-22}}=4.8125\\times10^{-9}$</p>" +
+        "<p>$\\lambda_D\\approx\\sqrt{4.8125\\times10^{-9}}\\approx6.93\\times10^{-5}\\,\\mathrm{[m]}$</p>" +
+        "</div>",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\nQ. 電子が 1 cm 進んで衝突・電離する回数を表す係数は何か？",
+      a: "タウンゼントの第一電離係数 $\\alpha$。",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\nQ. 陰極からの二次電子放出の確率を表す係数は何か？",
+      a: "タウンゼントの第二電離係数 $\\gamma$。",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\nQ. 自続放電条件の式は？",
+      a: "$\\gamma(e^{\\alpha d}-1)=1$。",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\nQ. パッシェンの法則とは何か？",
+      a: "平行平板電極間の火花電圧 $V_s$ は $pd$ のみの関数になるという法則。",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\nQ. pd が小さすぎると火花電圧が高くなる理由は？",
+      a: "ガス密度が低いか距離が短いため、電子が十分に衝突せず電離が進みにくいため。",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\nQ. pd が大きすぎると火花電圧が高くなる理由は？",
+      a: "ガス密度が高く、電子が十分加速する前に頻繁に衝突してエネルギーを失うため。",
+    },
+    {
+      q: "【プラズマ理工学 第9.10回】\n問題: $A=15\\,\mathrm{[cm^{-1}Torr^{-1}]}$、$B=365\\,\mathrm{[V\\,cm^{-1}Torr^{-1}]}$、$\\gamma=0.01$ のとき、$(pd)_{min}$ を求めよ。",
+      a: "【答】$(pd)_{min}\\approx0.83\\,\\mathrm{[Torr\\cdot cm]}$。",
+      calculation:
+        '<div class="calculation"><strong>【回答と計算フロー】</strong>' +
+        "<p>公式: $(pd)_{min}=\\dfrac{e}{A}\\ln\\left(1+\\dfrac{1}{\\gamma}\\right)$</p>" +
+        "<p>数値代入: $A=15$, $\\gamma=0.01$, $e=2.71$</p>" +
+        "<p>$(pd)_{min}=\\dfrac{2.71}{15}\\ln(1+100)=\\dfrac{2.71}{15}\\ln(101)$</p>" +
+        "<p>$\\ln(101)\\approx4.61$</p>" +
+        "<p>$(pd)_{min}=\\dfrac{2.71\\times4.61}{15}\\approx0.83$</p>" +
         "</div>",
     },
   ],
