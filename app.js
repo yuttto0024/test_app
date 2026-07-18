@@ -71,7 +71,7 @@
       return s.replace(/^\s*[-・]\s*/gm, "");
     }
 
-    const baseImagePath = "/images/";
+    const baseImagePath = "/public/images/";
     // Matches the whole phrase like:
     // （1-2.jpg を参照して、貼り付けたい。）
     // (1-2.jpg を参照して、貼り付けたい)
