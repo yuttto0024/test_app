@@ -61,6 +61,46 @@
     }
   }
 
+  // Replace special "を参照して、貼り付けたい" patterns with <img> tags.
+  // Place image files under `public/images/` (relative to index.html).
+  function processContentForImages(text) {
+    if (!text || typeof text !== "string") return "";
+
+    // Remove markdown-like leading list markers that were pasted directly ('- ', '・')
+    function sanitizeMarkdownArtifacts(s) {
+      return s.replace(/^\s*[-・]\s*/gm, "");
+    }
+
+    const baseImagePath = "./public/images/";
+    // Matches the whole phrase like:
+    // （1-2.jpg を参照して、貼り付けたい。）
+    // (1-2.jpg を参照して、貼り付けたい)
+    // 1-4(回答).jpg を参照して、貼り付けたい。
+    // Use a strict filename pattern so Japanese sentence text is not captured.
+    const imgRegex =
+      /(?:^|[（(\s])\s*([A-Za-z0-9_-]+(?:\([^)]+\))?\.(?:jpe?g|png|gif))\s*を参照して、?貼り付けたい[。\)）]*/gi;
+
+    // First sanitize loose markdown markers, then replace image patterns with <img> elements.
+    const cleaned = sanitizeMarkdownArtifacts(text);
+
+    const replaced = cleaned.replace(imgRegex, (_, filename) => {
+      try {
+        const encoded = encodeURIComponent(filename);
+        const src = baseImagePath + encoded;
+        return `<div class="embedded-image-wrap"><img class="embedded-image" src="${src}" alt="${filename}"></div>`;
+      } catch (e) {
+        return filename;
+      }
+    });
+
+    // Remove leftover filler phrases in case the image replacement missed any variants.
+    const finalText = replaced.replace(
+      /\s*を参照して、貼り付けたい[。）)]*/gi,
+      "",
+    );
+    return finalText;
+  }
+
   function updateCard() {
     const deck = getCurrentDeck();
     if (!deck) {
@@ -82,7 +122,7 @@
     }
 
     const card = deck.cards[state.currentIndex];
-    cardContent.innerHTML = card.q;
+    cardContent.innerHTML = processContentForImages(card.q || "");
     progress.textContent = `${state.currentIndex + 1} / ${deck.cards.length}`;
 
     if (card.q.length > 80 && window.innerWidth < 600) {
@@ -108,10 +148,10 @@
       flashcard.classList.add("show-answer");
       cardLabel.textContent = "【計算と解答】";
       if (card.calculation) {
-        cardContent.innerHTML = card.calculation;
+        cardContent.innerHTML = processContentForImages(card.calculation || "");
       } else {
         // fallback: show concise answer if no calculation provided
-        cardContent.innerHTML = card.a;
+        cardContent.innerHTML = processContentForImages(card.a || "");
       }
       state.stage = 1;
       typesetMath();
